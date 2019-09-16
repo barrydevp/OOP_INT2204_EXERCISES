@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - Fraction",
+      "request": "launch",
+      "mainClass": "task2.Fraction"
+    }
+  ]
+}
