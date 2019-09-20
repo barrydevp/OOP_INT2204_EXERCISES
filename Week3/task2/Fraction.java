@@ -26,6 +26,7 @@ public class Fraction {
      * @param numerator the numerator to set
      */
     public void setNumerator(int _numerator) {
+        if(_numerator == 0) this.denominator = 1;
         this.numerator = _numerator;
     }
 
@@ -33,8 +34,10 @@ public class Fraction {
      * @param denominator the denominator to set
      */
     public void setDenominator(int _denominator) {
-        this.denominator = Math.abs(_denominator);
-        this.numerator = this.numerator * (_denominator / this.denominator);
+        if(_denominator != 0) {
+            this.denominator = Math.abs(_denominator);
+            this.numerator = this.numerator * (_denominator / this.denominator);
+        }
     }
 
     /**
@@ -51,14 +54,21 @@ public class Fraction {
     }
 
     Fraction(int _numerator, int _denominator) {
-        if(_denominator == 0) this.denominator = 1;
+        if(_denominator == 0) {
+            this.denominator = 1;
+            _denominator = 1;
+        }
         else this.denominator = Math.abs(_denominator);
 
         this.numerator = _numerator * (_denominator / this.denominator);
 
-        this.reduce();
+        // this.reduce();
     }
 
+    Fraction(Fraction other) {
+        this.numerator = other.getNumerator();
+        this.denominator = other.getDenominator();
+    }
     /**
      * methods
      */
@@ -69,45 +79,65 @@ public class Fraction {
     }
 
     // getGcd
-    public int gcd(int a, int b) {
+    public static int gcd(int a, int b) {
         if(b == 0) return a;
 
         return gcd(b, a % b);
     }
 
     // reduce
-    public void reduce() {
-        int gcd = this.gcd(Math.abs(this.numerator), this.denominator);
-        this.numerator /= gcd;
-        this.denominator /= gcd;
+    public Fraction reduce() {
+        int gcd = Fraction.gcd(Math.abs(this.numerator), Math.abs(this.denominator));
+        int _numerator = this.numerator / gcd;
+        int _denominator = this.denominator / gcd;
+
+        this.denominator = Math.abs(_denominator);
+        this.numerator = _numerator * _denominator / this.denominator;
+
+        return this;
     }
 
     // add
     public Fraction add(Fraction other) {
         Fraction sum = new Fraction(this.numerator * other.getDenominator() + this.denominator * other.getNumerator(), this.denominator * other.getDenominator());
 
-        return sum;
+        this.numerator = sum.getNumerator();
+        this.denominator = sum.getDenominator();
+
+        return this;
     }
 
     // subtract
     public Fraction subtract(Fraction other) {
         Fraction diff = new Fraction(this.numerator * other.getDenominator() - this.denominator * other.getNumerator(), this.denominator * other.getDenominator());
 
-        return diff;
+        this.numerator = diff.getNumerator();
+        this.denominator = diff.getDenominator();
+
+        return this;
     }
 
     // multiple
-    public Fraction multiple(Fraction other) {
+    public Fraction multiply(Fraction other) {
         Fraction area = new Fraction(this.numerator * other.getNumerator(), this.denominator * other.getDenominator());
 
-        return area;
+        this.numerator = area.getNumerator();
+        this.denominator = area.getDenominator();
+
+        return this;
     }
 
     // divide
     public Fraction divide(Fraction other) {
-        Fraction quotient = new Fraction(this.numerator * other.getDenominator(), this.denominator * other.getNumerator());
+        if(other.getNumerator() != 0){
+            Fraction quotient = new Fraction(this.numerator * other.getDenominator(),
+                this.denominator * other.getNumerator());
 
-        return quotient;
+            this.numerator = quotient.getNumerator();
+            this.denominator = quotient.getDenominator();
+        }
+
+        return this;
     }
 
     /**
@@ -117,8 +147,11 @@ public class Fraction {
         if (obj instanceof Fraction) {
             Fraction other = (Fraction) obj;
             // compare this vs other here
-
-            if(this.getNumerator() == other.getNumerator() && this.getDenominator() == other.getDenominator());
+            Fraction f = new Fraction(this);
+            Fraction diff = f.subtract(other);
+            // if(this.getNumerator() == other.getNumerator() && this.getDenominator() == other.getDenominator())
+            //     return true;
+            if(diff.getNumerator() == 0)
                 return true;
         }
 
@@ -129,20 +162,33 @@ public class Fraction {
         Fraction f1 = new Fraction();
         Fraction f2 = new Fraction(-3, -4);
         Fraction f3 = new Fraction(2, -4);
-        Fraction f4 = new Fraction(5);
+        Fraction f4 = new Fraction(1, -2);
         Fraction f5 = new Fraction(5, -1);
         Fraction f6 = new Fraction(-3, 6);
         Fraction f7 = new Fraction(1, 4);
+        Fraction f9 = new Fraction(0, 4);
 
-        f4.logFraction();
-        f5.logFraction();
-        f4.add(f5).logFraction();
-        f2.subtract(f7).logFraction();
-        f7.multiple(f2).logFraction();
-        f4.divide(f3).logFraction();
-        f4.divide(f2).logFraction();
+        // f3.logFraction();
+        // f4.logFraction();
+        // f5.logFraction();
+        // // f4.add(f5).logFraction();
+        // f2.subtract(f7).logFraction();
+        // f7.multiply(f2).logFraction();
+        // // f4.divide(f3).logFraction();
+        // // f4.divide(f2).logFraction();
+        System.out.println(f4);
+        System.out.println(f2);
+        System.out.println(f4.add(f5));
+        System.out.println(f4.subtract(f7));
+        System.out.println(f4.multiply(f2));
+        System.out.println(f4.divide(f9));
+        System.out.println(f2);
+        System.out.println(f9);
 
         System.out.println("compare result: " + f3.equals(f4));
 
+        Fraction f8 = new Fraction(6, 2);
+
+        f8.logFraction();
     }
 }
