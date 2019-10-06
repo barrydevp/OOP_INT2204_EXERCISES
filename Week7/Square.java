@@ -1,6 +1,4 @@
 public class Square extends Rectangle {
-    protected double width;
-    protected double length;
 
     public Square() {
         super();
@@ -16,6 +14,10 @@ public class Square extends Rectangle {
 
     public Square(double side, String color, boolean filled) {
         super(side, side, color, filled);
+    }
+
+    public Square(Point other, double side, String color, boolean filled) {
+        super(other, side, side, color, filled);
     }
 
     /**
@@ -47,8 +49,28 @@ public class Square extends Rectangle {
         this.length = side;
     }
 
+    /**
+     * 
+     * @param obj
+     * @return comparision two Square
+     */
+    public boolean equals(Object obj) {
+        if (obj instanceof Square) {
+
+            Square other = (Square) obj;
+            
+            // compare this vs other here
+            if(Math.abs(this.getSide() - other.getSide()) > 0.001) return false;
+            if(!this.topLeft.equals(other.topLeft)) return false;
+
+            return true;
+        }
+
+        return false;
+    }
+
     public String toString() {
-        return "Square[side=" + this.width + ",color=" + this.getColor() + ",filled=" + this.isFilled() + "]";
+        return "Square[topLeft=" + this.topLeft.toString() + ",side=" + this.width + ",color=" + this.getColor() + ",filled=" + this.isFilled() + "]";
     }
 
 }

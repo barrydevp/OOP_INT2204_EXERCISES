@@ -63,7 +63,8 @@ public class Rectangle extends Shape {
     }
     
     public String toString() {
-        return "Rectangle[" + super.toString() + ",width=" + this.width + ",length=" + this.length + "]";
+        return "Rectangle[width=" + this.width + ",length=" + this.length + ",color=" + this.getColor() + ",filled=" + this.isFilled() + "]";
+        // return "Rectangle[" + super.toString() + ",width=" + this.width + ",length=" + this.length + "]";
     }
 
 }

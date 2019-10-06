@@ -46,7 +46,8 @@ public class Circle extends Shape {
     }
     
     public String toString() {
-        return "Circle[" + super.toString() + ",radius=" + this.radius + "]";
+        return "Circle[radius=" + this.radius + ",color=" + this.getColor() + ",filled=" + this.isFilled() + "]";
+        // return "Circle[" + super.toString() + ",radius=" + this.radius + "]";
     }
 
 }
