@@ -12,19 +12,31 @@ public class Circle extends Shape {
 
     public Circle(double radius) {
         super();
-        this.radius = radius;
+        if(radius >= 0) {
+			this.radius = radius;
+		} else {
+			this.radius = 0;
+		}
         this.center = new Point();
     }
 
     public Circle(double radius, String color, boolean filled) {
         super(color, filled);
-        this.radius = radius;
+        if(radius >= 0) {
+			this.radius = radius;
+		} else {
+			this.radius = 0;
+		}
         this.center = new Point();
     }
 
     public Circle(Point other, double radius, String color, boolean filled) {
         super(color, filled);
-        this.radius = radius;
+        if(radius >= 0) {
+			this.radius = radius;
+		} else {
+			this.radius = 0;
+		}
         this.center = other;
         // this.center = new Point(other);
     }
@@ -54,21 +66,25 @@ public class Circle extends Shape {
      * @param radius the radius to set
      */
     public void setRadius(double radius) {
-        this.radius = radius;
+        if(radius >= 0) {
+			this.radius = radius;
+		}
     }
     
     /**
      * @return Area
      */
     public double getArea() {
-        return PI * this.radius * this.radius;
+        return Math.PI * this.radius * this.radius;
+        // return Math.round(Math.PI * this.radius * this.radius * 100.0) / 100.0;
     }
 
     /**
      * @return Perimeter
      */
     public double getPerimeter() {
-        return PI * this.radius * 2;
+        return Math.PI * this.radius * 2.0;
+        // return Math.round(Math.PI * this.radius * 2.0 * 100.0) / 100.0;
     }
     
     @Override
@@ -89,7 +105,7 @@ public class Circle extends Shape {
 
     @Override
     public int hashCode() {
-        int prime = 17;
+        int prime = 19;
         int result = 1;
         result = result * prime + Double.valueOf(this.radius).hashCode();
         return result * prime + this.center.hashCode();

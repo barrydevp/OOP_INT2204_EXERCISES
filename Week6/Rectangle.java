@@ -9,15 +9,25 @@ public class Rectangle extends Shape {
     }
 
     public Rectangle(double width, double length) {
-        super();
+		  super();
+      if(width >= 0 && length >= 0) {
         this.width = width;
         this.length = length;
+      } else {
+        this.width = 0;
+        this.length = 0;
+      }
     }
 
     public Rectangle(double width, double length, String color, boolean filled) {
         super(color, filled);
-        this.width = width;
-        this.length = length;
+        if(width >= 0 && length >= 0) {
+          this.width = width;
+          this.length = length;
+        } else {
+          this.width = 0;
+          this.length = 0;
+        }
     }
 
     /**
@@ -31,7 +41,9 @@ public class Rectangle extends Shape {
      * @param width the width to set
      */
     public void setWidth(double width) {
+      if(width >= 0) {
         this.width = width;
+      }
     }
 
     /**
@@ -45,26 +57,30 @@ public class Rectangle extends Shape {
      * @param length the length to set
      */
     public void setLength(double length) {
+      if(length >= 0) {
         this.length = length;
+      }
+        
     }
 
     /**
      * @return Area
      */
     public double getArea() {
-        return width * length;
+		  return this.width * this.length;
+        // return Math.round(this.width * this.length * 100.0) / 100.0;
     }
 
     /**
      * @return Perimeter
      */
     public double getPerimeter() {
-        return 2 * (width + length);
+		  return 2.0 * (this.width + this.length);
+        // return Math.round( 2.0 * (this.width + this.length) * 100.0) / 100.0;
     }
     
     public String toString() {
-        return "Rectangle[width=" + this.width + ",length=" + this.length + ",color=" + this.getColor() + ",filled=" + this.isFilled() + "]";
-        // return "Rectangle[" + super.toString() + ",width=" + this.width + ",length=" + this.length + "]";
+      return "Rectangle[width=" + this.width + ",length=" + this.length + ",color=" + this.getColor() + ",filled=" + this.isFilled() + "]";
     }
 
 }

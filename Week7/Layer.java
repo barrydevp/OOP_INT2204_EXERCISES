@@ -2,18 +2,19 @@ import java.util.*;
 import java.util.stream.*;
 
 public class Layer {
-    private LinkedList<Shape> shapes;
+    private List<Shape> shapes;
 
     public Layer() {
-        this.shapes = new LinkedList<Shape>();
+        this.shapes = new ArrayList<Shape>();
     }
 
     /**
      * 
      * @param shape
      */
-    void addShape(Shape shape) {
-        this.shapes.add(shape);
+    public void addShape(Shape shape) {
+        if(shape != null)
+            this.shapes.add(shape);
     }
 
     /**
@@ -21,7 +22,7 @@ public class Layer {
      * @return
      */
     public String getInfo() {
-        String info = "Layer of crazy shapes:\n";
+        String info = "Layer of crazy shapes: \n";
 
         Iterator<Shape> i = this.shapes.iterator();
         while (i.hasNext()) {
@@ -35,24 +36,23 @@ public class Layer {
      * 
      */
     public void removeCircles() {
-        Iterator<Shape> i = this.shapes.iterator();
+        // Iterator<Shape> i = this.shapes.iterator();
 
-        // int index = 0;
-        while (i.hasNext()) {
-            Shape shape = i.next();
-            // System.out.println(shape.toString());
-            // System.out.println(shape instanceof Circle);
-            // this.shapes.remove();
-            if(shape instanceof Circle) {
-                // this.shapes.remove();
-                i.remove();
+        // while (i.hasNext()) {
+        //     Shape shape = i.next();
+        //     if(shape instanceof Circle) {
+        //         i.remove();
+        //     }
+        // }
+        for(int i = 0; i < this.shapes.size(); ++i) {
+            if(this.shapes.get(i) instanceof Circle) {
+                this.shapes.remove(i);
             }
-            // index++;
         }
     }
 
     public void removeDuplicates() {
-        this.shapes = this.shapes.stream().distinct().collect(Collectors.toCollection(LinkedList<Shape>::new));
+        this.shapes = this.shapes.stream().distinct().collect(Collectors.toCollection(ArrayList<Shape>::new));
         // this.shapes = this.shapes.stream().peek(System.out::println).filter(o -> o instanceof Rectangle).distinct().peek(System.out::println).collect(Collectors.toCollection(LinkedList<Shape>::new));
     }
 }

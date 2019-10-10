@@ -13,22 +13,37 @@ public class Rectangle extends Shape {
 
     public Rectangle(double width, double length) {
         super();
-        this.width = width;
-        this.length = length;
+        if(width >= 0 && length >= 0) {
+            this.width = width;
+            this.length = length;
+        } else {
+            this.width = 0;
+            this.length = 0;
+        }
         this.topLeft = new Point();
     }
 
     public Rectangle(double width, double length, String color, boolean filled) {
         super(color, filled);
-        this.width = width;
-        this.length = length;
+        if(width >= 0 && length >= 0) {
+            this.width = width;
+            this.length = length;
+          } else {
+            this.width = 0;
+            this.length = 0;
+          }
         this.topLeft = new Point();
     }
 
     public Rectangle(Point other, double width, double length, String color, boolean filled) {
         super(color, filled);
-        this.width = width;
-        this.length = length;
+        if(width >= 0 && length >= 0) {
+            this.width = width;
+            this.length = length;
+          } else {
+            this.width = 0;
+            this.length = 0;
+          }
         this.topLeft = other;
         // this.topLeft = new Point(other);
     }
@@ -58,7 +73,9 @@ public class Rectangle extends Shape {
      * @param width the width to set
      */
     public void setWidth(double width) {
-        this.width = width;
+        if(width >= 0) {
+            this.width = width;
+          }
     }
 
     /**
@@ -72,7 +89,9 @@ public class Rectangle extends Shape {
      * @param length the length to set
      */
     public void setLength(double length) {
-        this.length = length;
+        if(length >= 0) {
+            this.length = length;
+          }
     }
 
     /**
@@ -116,7 +135,7 @@ public class Rectangle extends Shape {
         int result = 1;
         result = result * prime + Double.valueOf(this.width).hashCode();
         result = result * prime + Double.valueOf(this.length).hashCode();
-
+        System.out.println(result * prime + this.topLeft.hashCode());
         return result * prime + this.topLeft.hashCode();
     }
 

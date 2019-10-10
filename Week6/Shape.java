@@ -3,12 +3,14 @@ public abstract class Shape {
     protected boolean filled;
 
     public Shape() {
-        this.color = "White";
-        this.filled = false;
+        // this.color = "White";
+        // this.filled = false;
     }
 
     public Shape(String color, boolean filled) {
-        this.color = color;
+		// if(color != null)
+			this.color = color;
+        // else this.color = "White";
         this.filled = filled;
     }
 
@@ -16,6 +18,7 @@ public abstract class Shape {
      * @return the color
      */
     public String getColor() {
+
         return color;
     }
 
@@ -23,7 +26,8 @@ public abstract class Shape {
      * @param color the color to set
      */
     public void setColor(String color) {
-        this.color = color;
+		if(color != null)
+			this.color = color;
     }
 
     /**

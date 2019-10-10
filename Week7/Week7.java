@@ -54,23 +54,27 @@ public class Week7 {
         // System.out.println(s4.hashCode());
         // System.out.println(s3.hashCode());
         Layer layer = new Layer();
+        layer.addShape(null);
         layer.addShape(new Square(new Point(2.0, 3.0), 6.6, "RED", true));
-        layer.addShape(new Rectangle(new Point(2.0, 3.0), 6.6, 6.6, "WHITE", true));
-        layer.addShape(new Rectangle(new Point(2.0, 3.0), 6.6, 6.6, "WHITE", true));
+        layer.addShape(new Rectangle(new Point(4.0, 1.0), 3, 4.6, "WHITE", true));
+        layer.addShape(new Rectangle(new Point(2.0, 3.0), 6.6, 6.5, "WHITE", true));
+        layer.addShape(new Rectangle(new Point(2.0, 1.0), 3, 4.6, "WHITE", true));
+        layer.addShape(new Rectangle(new Point(2.0, 3.0), 6.6, 6.5, "WHITE", true));
+        layer.addShape(new Rectangle(new Point(2.0, 1.0), 3, 4.6, "WHITE", true));
+        
+        
         layer.addShape(new Rectangle(new Point(2.0, 3.0), 6.6, 6.6, "WHITE", true));
         layer.addShape(new Circle(new Point(1.0, 3.0), 2.0, "WHITE", true));
         layer.addShape(new Circle(new Point(1.0, 3.0), 2.0, "WHITE", true));
         layer.addShape(new Circle(new Point(1.0, 3.0), 2.0, "WHITE", true));
-        layer.addShape(new Rectangle(new Point(4.0, 1.0), 3, 4.6, "WHITE", true));
-        layer.addShape(new Rectangle(new Point(4.0, 1.0), 3, 4.6, "WHITE", true));
-        layer.addShape(new Rectangle(new Point(4.0, 1.0), 3, 4.6, "WHITE", true));
+        
         layer.addShape(new Circle(new Point(2.0, 2.0), 4.0, "WHITE", true));
         layer.addShape(new Circle(new Point(2.0, 2.0), 4.0, "WHITE", true));
         layer.addShape(new Circle(new Point(2.0, 5.0), 6.0, "WHITE", true));
 
         // System.out.println(layer.getInfo());
         // layer.removeCircles();
-        // System.out.println(layer.getInfo());
+        System.out.println(layer.getInfo());
         layer.removeDuplicates();
         System.out.println(layer.getInfo());
     }
