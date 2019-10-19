@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Structure {
 	// private String accesModifier;
 	private String name;
@@ -10,37 +12,43 @@ public class Structure {
 	}
 
 	Structure(String rawMethodString) {
+		// System.out.println("rawMethodString: " + rawMethodString);
 		// get method name
 		int indexOfOpenParenthesi = rawMethodString.indexOf("(");
-
-		boolean startReadMethodName = false;
-		name = "";
-		for(int i = indexOfOpenParenthesi - 1; i >= 0; i--) {
-			if(rawMethodString.charAt(i) == ' '){
-				if(startReadMethodName) break;
-			} else {
-				name = rawMethodString.charAt(i) + name;
-				startReadMethodName = true;
-			}
-		}
-
-		// get list arguments
-		argumentTypes = null;
-
-		int indexOfCloseParenthesi = rawMethodString.indexOf(")");
-		if(indexOfCloseParenthesi + 1 != indexOfOpenParenthesi){
-			argumentTypes = new ArrayList<String>();
-			String[] rawArguments = rawMethodString.substring(indexOfOpenParenthesi + 1, indexOfCloseParenthesi + 1).split("(\\s\\w+\\,\\s)|(\\s\\w+\\))");
-			System.out.println("rawArguments: ");
-
-			for(int i = 0; i < rawArguments.length; ++i) {
-				String rawType = rawArguments[i];
-				System.out.println(rawType);
-				if(rawType.contains(",")) {
-					rawType = rawType.substring(rawType.indexOf(",") + 1);
+		if(indexOfOpenParenthesi != -1){
+			boolean startReadMethodName = false;
+			name = "";
+			for(int i = indexOfOpenParenthesi - 1; i >= 0; i--) {
+				if(rawMethodString.charAt(i) == ' '){
+					if(startReadMethodName) break;
+				} else {
+					name = rawMethodString.charAt(i) + name;
+					startReadMethodName = true;
 				}
+			}
 
-				argumentTypes.add(standardizeType(rawType));
+			// get list arguments
+			argumentTypes = null;
+
+			int indexOfCloseParenthesi = rawMethodString.indexOf(")");
+			// System.out.println("indexOfCloseParenthesi: " + indexOfCloseParenthesi);
+			// System.out.println("indexOfOpenParenthesi: " + indexOfOpenParenthesi);
+			if(indexOfOpenParenthesi + 1 != indexOfCloseParenthesi){
+				argumentTypes = new ArrayList<String>();
+				String[] rawArguments = rawMethodString.substring(indexOfOpenParenthesi + 1, indexOfCloseParenthesi + 1).split("(\\s\\w+\\,\\s)|(\\s\\w+\\))");
+				// System.out.println("rawArguments: ");
+				if(rawArguments.length > 0){
+					for(int i = 0; i < rawArguments.length; ++i) {
+						String rawType = rawArguments[i];
+						// System.out.println("raw: "+rawType);
+						if(rawType.contains(",")) {
+							rawType = rawType.substring(rawType.indexOf(",") + 1);
+						}
+
+						argumentTypes.add(standardizeType(rawType.split("\\.\\.\\.")[0]));
+					}
+				}
+				
 			}
 		}
 	}
@@ -56,11 +64,12 @@ public class Structure {
 		}
 
 		result += ")";
+		// System.out.println("result: " + result);
 		return result;
 	}
 
 	public static String standardizeType(String raw) {
-		System.out.println(raw);
+		// System.out.println(raw);
 		// if contain []
 		String finallyType = raw;
 		boolean isContainSquareBrackets = raw.indexOf("[") != -1;
@@ -73,21 +82,22 @@ public class Structure {
 
 		if(indexOfOpenBracket != -1) {
 			int indexOfCloseBracket = raw.indexOf(">");
-			subType = tranformAgrument(
+			subType = standardizeType(
 						raw.substring(indexOfOpenBracket + 1, indexOfCloseBracket)
 					);
 			mainType = raw.substring(0, indexOfOpenBracket);		
 		}
 		
-		if(Week10.listDefaultImport.containsKey(mainType)) {
-			mainType = listDefaultImport.get(mainType);
-		} else 
-			if(Week10.listPackage.containsKey(mainType)) {
-				mainType = listPackage.get(mainType);
-			} else 
+		// if(Week10.listDefaultImport.containsKey(mainType)) {
+		// 	mainType = Week10.listDefaultImport.get(mainType);
+		// } else 
+			// if(Week10.listPackage.containsKey(mainType)) {
+			// 	mainType = Week10.listPackage.get(mainType);
+			// } else 
 				if(Week10.listImport.containsKey(mainType)) {
-					mainType = listImport.get(mainType);
-				}
+					mainType = Week10.listImport.get(mainType);
+				} else if(Week10.listJavaLang.contains(mainType)) mainType = "java.lang." + mainType;
+						else if(!Week10.listPrimative.contains(mainType) && Week10.listPackage.size() > 0) mainType = Week10.listPackage.get(0) + mainType;
 
 		if(subType != null) finallyType = mainType + "<" + subType + ">";
 		else finallyType = mainType;
