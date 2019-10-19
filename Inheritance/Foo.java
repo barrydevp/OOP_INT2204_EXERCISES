@@ -6,7 +6,7 @@ public class Foo extends Bar {
 
     public Foo(String a) {
         // super(a);
-        // sayHello();
+        super.sayHello();
     }
 
     // public void sayHello() {
@@ -23,9 +23,9 @@ class Bar extends Haa {
     //     System.out.println(test);
     // }
 
-    public void sayHello() {
-        System.out.println("Hello Bar");
-    }
+    // public void sayHello() {
+    //     System.out.println("Hello Bar");
+    // }
 }
 
 class Haa {
