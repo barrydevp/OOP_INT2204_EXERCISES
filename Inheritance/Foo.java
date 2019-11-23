@@ -4,10 +4,10 @@ public class Foo extends Bar {
     //     // sayHello();
     // }
 
-    public Foo(String a) {
-        // super(a);
-        super.sayHello();
-    }
+    // public Foo(String a) {
+    //     // super(a);
+    //     super.sayHello();
+    // }
 
     // public void sayHello() {
     //     System.out.println("Hello Foo");
@@ -15,25 +15,25 @@ public class Foo extends Bar {
 }
 
 class Bar extends Haa {
-    // public Bar() {
-    //     sayHello();
-    // }
+    public Bar() {
+        sayHello();
+    }
 
     // public Bar(String test) {
     //     System.out.println(test);
     // }
 
-    // public void sayHello() {
-    //     System.out.println("Hello Bar");
-    // }
+    private void sayHello() {
+        System.out.println("Hello Bar");
+    }
 }
 
 class Haa {
-    public Haa() {
-        sayHello();
-    }
+    // public Haa() {
+    //     sayHello();
+    // }
 
-    public void sayHello() {
+    private void sayHello() {
         System.out.println("Hello Haa");
     }
 }
